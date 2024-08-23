@@ -3,58 +3,22 @@
 Dynamic instrumentation toolkit for developers, reverse-engineers, and security
 researchers. Learn more at [frida.re](https://frida.re/).
 
-Two ways to install
-===================
+# Steps to build the frida binaries
+1. Run - sudo apt-get install build-essential git lib32stdc++-9-dev libc6-dev-i386 nodejs npm as a prerequisite ( nodejs version should be >= 18)
+2. Inside the git project root folder (/frida) run - ./configure. This will configure the build for the native machine on which we're building.
+3. Next, run - make. Which will use ./build as the build directory.
+4. Post the success of the above command run - make install to install the frida binaries (might require sudo permissions for this).
+5. The binaries will be installed in - /usr/local/bin and /usr/local/lib typically -
+   ![image](https://github.com/user-attachments/assets/cacb77a3-2005-4351-8957-f30596f6906c)
+6. We need to copy these 2 folders into a folder called frida-binaries to get use these generated frida binaries. The entire git project is not needed. We can transfer the      folder with these binaries to the image. Commands which will accomplish the above -
 
-## 1. Install from prebuilt binaries
+   sudo mkdir frida-binaries ( location is of choice as we need to move this folder to the image according to the Dockerfile)
+   sudo cp -r /usr/local/bin /frida-binaries/
+   sudo cp -r /usr/local/lib /frida-binaries/
+     
+8. We can bundle the frida-binaries folder with the Dockerfile in the project root with the biometrics war file to build the docker image and push it to ECR.
 
-This is the recommended way to get started. All you need to do is:
+   Example of a zipped folder with all assets - (https://qonline-my.sharepoint.com/:u:/g/personal/anandn_quinnox_com/EauoaEAFhAtBoGgeOZHxP4gBQA5F-Y3yrrPgyTvspOfXBQ?e=moSPqu
+)   
 
-    pip install frida-tools # CLI tools
-    pip install frida       # Python bindings
-    npm install frida       # Node.js bindings
-
-You may also download pre-built binaries for various operating systems from
-Frida's [releases](https://github.com/frida/frida/releases) page on GitHub.
-
-## 2. Build your own binaries
-
-Run:
-
-    make
-
-You may also invoke `./configure` first if you want to specify a `--prefix`, or
-any other options.
-
-### CLI tools
-
-For running the Frida CLI tools, e.g. `frida`, `frida-ls-devices`, `frida-ps`,
-`frida-kill`, `frida-trace`, `frida-discover`, etc., you need a few packages:
-
-    pip install colorama prompt-toolkit pygments
-
-### Apple OSes
-
-First make a trusted code-signing certificate. You can use the guide at
-https://sourceware.org/gdb/wiki/PermissionsDarwin in the sections
-“Create a certificate in the System Keychain” and “Trust the certificate
-for code signing”. You can use the name `frida-cert` instead of `gdb-cert`
-if you'd like.
-
-Next export the name of the created certificate to relevant environment
-variables, and run `make`:
-
-    export MACOS_CERTID=frida-cert
-    export IOS_CERTID=frida-cert
-    export WATCHOS_CERTID=frida-cert
-    export TVOS_CERTID=frida-cert
-    make
-
-To ensure that macOS accepts the newly created certificate, restart the
-`taskgated` daemon:
-
-    sudo killall taskgated
-
-## Learn more
-
-Have a look at our [documentation](https://frida.re/docs/home/).
+Reference - [frida-build-instructions](https://frida.re/docs/building/)
