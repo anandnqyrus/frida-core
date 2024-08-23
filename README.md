@@ -12,9 +12,11 @@ researchers. Learn more at [frida.re](https://frida.re/).
    ![image](https://github.com/user-attachments/assets/cacb77a3-2005-4351-8957-f30596f6906c)
 6. We need to copy these 2 folders into a folder called frida-binaries to get use these generated frida binaries. The entire git project is not needed. We can transfer the      folder with these binaries to the image. Commands which will accomplish the above -
 
-   sudo mkdir frida-binaries ( location is of choice as we need to move this folder to the image according to the Dockerfile)
-   sudo cp -r /usr/local/bin /frida-binaries/
-   sudo cp -r /usr/local/lib /frida-binaries/
+   1. sudo mkdir frida-binaries ( location is of choice as we need to move this folder to the image according to the Dockerfile)
+   
+   2. sudo cp -r /usr/local/bin /frida-binaries/
+   
+   3. sudo cp -r /usr/local/lib /frida-binaries/
      
 8. We can bundle the frida-binaries folder with the Dockerfile in the project root with the biometrics war file to build the docker image and push it to ECR.
 
