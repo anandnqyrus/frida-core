@@ -18,7 +18,7 @@ researchers. Learn more at [frida.re](https://frida.re/).
    
    3. sudo cp -r /usr/local/lib /frida-binaries/
      
-8. We can bundle the frida-binaries folder with the Dockerfile in the project root with the biometrics war file to build the docker image and push it to ECR.
+8. We can bundle the frida-binaries folder with the [Dockerfile](https://github.com/anandnqyrus/frida/blob/main/Dockerfile) in the project root with the biometrics war file to build the docker image and push it to ECR. The path for the biometrics war file would need to be modified in the Dockerfile post building it.
 
    Example of a zipped folder with all assets - (https://qonline-my.sharepoint.com/:u:/g/personal/anandn_quinnox_com/EauoaEAFhAtBoGgeOZHxP4gBQA5F-Y3yrrPgyTvspOfXBQ?e=moSPqu
 )   
